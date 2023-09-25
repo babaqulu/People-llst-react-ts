@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import List from './components/list/List';
+import AddToList from './components/AddToList';
+
+export interface IState{
+  people:{
+    name:string,
+    age:number,
+    url:string,
+    note?:string
+  }[]
+}
 
 function App() {
+  
+  const [people,setPeople]=useState<IState["people"]>([
+    {
+      name:"LeBron James",
+      age:36,
+      url: require('./img/lebron.jpg'),
+      note:"Allergic to staying on the same team" 
+    }
+  ])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1 className='app-header'>People invited to my party</h1>
+      < List people={people} />
+      <AddToList people={people} setPeople={setPeople} />
     </div>
   );
 }
